@@ -1,0 +1,4 @@
+# not permit any file move up to github
+.env
+node_modules
+node_modules/*
