@@ -7,10 +7,10 @@ import express from 'express';
  *app.set("view engine", "ejs"); se dung HTML thong qua Engine EJS
  *app.set("views", "./src/views"); tat ca nhung view  se nam trong ./src/views
  */
-const congifViewEngine = (app) => {
+const configViewEngine = (app) => {
     app.use(express.static('./src/public'))
     app.set("view engine", "ejs");  
     app.set("views", "./src/views");
 }
 
-export default congifViewEngine;
+export default configViewEngine;    

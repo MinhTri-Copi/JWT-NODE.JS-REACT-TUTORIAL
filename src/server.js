@@ -1,5 +1,5 @@
 import express from 'express';
-import congifViewEngine from './configs/ViewEngine';
+import configViewEngine from './configs/ViewEngine';
 import initWebRoutes from './routes/web';
 require('dotenv').config(); // cau nay khai bao de su dung file .env
 
@@ -7,7 +7,7 @@ const app = express();
 
 
 //config view engine
-congifViewEngine(app);
+configViewEngine(app);
 //init web routess
 initWebRoutes(app);
 
