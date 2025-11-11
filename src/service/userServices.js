@@ -17,16 +17,16 @@
         comparePassword
     }
 
- const getUserList = () => {
-       pool.query ('SELECT * FROM users',
-       function (error, results, fields) {
-           if (error) {
-                console.log(error)
-              }
-            }
-        );
-    }
-
+    const getUserList = async () => {
+        try {
+            
+            const [rows] = await pool.query('SELECT * FROM users');
+            
+            return rows; 
+        } catch (error) {
+            throw error; 
+        }
+    };
 
     module.exports = {
         hashPassword, 
