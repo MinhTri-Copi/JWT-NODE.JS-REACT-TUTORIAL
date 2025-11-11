@@ -11,10 +11,7 @@ import homeController from '../controller/homeController';
  const  initWebRoutes = (app) => {
      router.get("/", homeController.handleHelloWorld);
      router.get("/user", homeController.handleUserPage);
-     router.get("/about", (req , res) => {
-         return res.send("This is about page");
-     })
-
+     router.post("/users/create-user", homeController.handleCreateNewUser);
      return  app.use("/", router);
 
  }
