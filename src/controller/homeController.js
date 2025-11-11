@@ -1,5 +1,8 @@
 
+import { run } from "@babel/core/lib/transformation";
 import connection, { pool } from "../configs/connectDB";
+import { hashPassword , comparePassword} from "../service/userServices";
+
 const e = require("express");
 
 const handleHelloWorld = (req , res) =>
@@ -13,14 +16,18 @@ const handleUserPage = (req , res) =>
 }
 
 
-const handleCreateNewUser = (req, res) => {
+const handleCreateNewUser = async (req, res) => {
     let email  = req.body.email;
-    let password = req.body.password;
+    let password =req.body.password;
     let username  = req.body.username;
 
+    const hash = await hashPassword(password);
+     console.log(">>>Check hash  : ", hash)
 
-
-    pool.query ('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, password, username], 
+    const compare = await comparePassword (password, hash);
+    console.log(">>>Check compare  : ", compare)
+    
+    const [result]= await pool.query ('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, hash, username], 
     function (error, results, fields) {
         if (error) {
             console.log(error);
