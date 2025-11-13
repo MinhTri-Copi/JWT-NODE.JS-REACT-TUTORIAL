@@ -22,18 +22,18 @@
 
                     <div class="mb-3 mt-3 col-6">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="col-6"></div>
                     <div class="mb-3 col-6">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
+                        <input type="password" name="password" class="form-control" id="password" required>
                     </div>
                     <div class=" col-6"></div>
                     <div class="mb-3 col-6">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" id="username">
+                        <input type="text" name="username" class="form-control" id="username" required>
                     </div>
 
                     <div class="col-12">
@@ -70,7 +70,11 @@
                                         <td><%= item.username %></td>
                                         <td>
                                             <button class="btn btn-warning">Edit</button>
-                                            <button class="btn btn-danger">Delete</button>
+                                            <form action="/delete-user/<%= item.id %>" method="POST" style = "display:inline">
+                                                <button class="btn btn-danger" type="submit">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <% }) %>

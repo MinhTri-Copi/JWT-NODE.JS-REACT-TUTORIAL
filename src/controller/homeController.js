@@ -1,42 +1,42 @@
 
 import { run } from "@babel/core/lib/transformation";
 import connection, { pool } from "../configs/connectDB";
-import { hashPassword , comparePassword, getUserList} from "../service/userServices";
+import { hashPassword, CreateNewUser, getUserList , DeleteUser} from "../service/userServices";
 
 const e = require("express");
 
-const handleHelloWorld = (req , res) =>
-{
-     return  res.render("home");
+const handleHelloWorld = (req, res) => {
+    return res.render("home");
 
 }
-const handleUserPage = async(req , res) =>
-{
+const handleUserPage = async (req, res) => {
     const userList = await getUserList();
-    return res.render("user", {userList});
+    return res.render("user", { userList });
 }
 
 
 const handleCreateNewUser = async (req, res) => {
-    let email  = req.body.email;
-    let password =req.body.password;
-    let username  = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
+    let username = req.body.username;
 
-    const hash = await hashPassword(password);
+    const hashedPassword = await hashPassword(password);
+    const createUser = await CreateNewUser(email, hashedPassword, username);
+        res.redirect("/user");
 
-    
-    const [result]= await pool.query ('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, hash, username], 
-    function (error, results, fields) {
-        if (error) {
-            console.log(error);
-    }
+    return res.send("Create new user succeed!");
+
 }
-);
-    console.log(">>>Check  req  : ", req.body)
-    return res.send("Create new user success!");
+
+const handleDeleteUser = async (req, res) => {
+    let userID = req.params.id;
+    await DeleteUser(userID);
+    res.redirect("/user");
 }
+
 module.exports = {
     handleHelloWorld,
     handleUserPage,
     handleCreateNewUser,
+    handleDeleteUser
 }

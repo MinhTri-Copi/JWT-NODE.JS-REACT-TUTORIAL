@@ -27,9 +27,24 @@
             throw error; 
         }
     };
-
+    const CreateNewUser = async (email, password, username) => {
+        try{
+             const [results, fields] = await pool.execute('INSERT INTO users(email,password,username) VALUES (?,?,?)', [email, password, username]);
+        }catch(error){
+            console.log(">>>> Error: ", error);
+        }
+    };
+    const DeleteUser = async (userId) => {
+        try{
+            const [results,fields] = await pool.execute('DELETE FROM users WHERE id = ?', [userId]);
+        }catch(error){
+            console.log(">>>> Error: ", error);
+        }
+    };
     module.exports = {
         hashPassword, 
         comparePassword,
-        getUserList
+        getUserList,
+        CreateNewUser,
+        DeleteUser
     }
