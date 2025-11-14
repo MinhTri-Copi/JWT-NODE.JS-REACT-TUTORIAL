@@ -29,7 +29,7 @@
     };
     const CreateNewUser = async (email, password, username) => {
         try{
-             const [results, fields] = await pool.execute('INSERT INTO users(email,password,username) VALUES (?,?,?)', [email, password, username]);
+             const [row] = await pool.query    ('INSERT INTO users(email,password,username) VALUES (?,?,?)', [email, password, username]);
         }catch(error){
             console.log(">>>> Error: ", error);
         }

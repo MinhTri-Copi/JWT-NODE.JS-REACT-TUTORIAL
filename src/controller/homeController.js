@@ -1,6 +1,5 @@
 
 import { run } from "@babel/core/lib/transformation";
-import connection, { pool } from "../config/connectDB";
 import { hashPassword, CreateNewUser, getUserList , DeleteUser, UpdateUser, getUserByID} from "../service/userServices";
 
 const e = require("express");
@@ -23,8 +22,6 @@ const handleCreateNewUser = async (req, res) => {
     const hashedPassword = await hashPassword(password);
     const createUser = await CreateNewUser(email, hashedPassword, username);
         res.redirect("/user");
-
-    return res.send("Create new user succeed!");
 
 }
 

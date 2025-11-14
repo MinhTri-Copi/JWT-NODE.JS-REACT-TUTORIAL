@@ -1,7 +1,14 @@
+
 import mysql from 'mysql2/promise';
 require('dotenv').config();
+const { Sequelize } = require('sequelize');
 
-// Tạo connection pool cho hiệu suất tốt hơn
+
+// Option 3: Passing parameters separately (other dialects)
+const sequelize = new Sequelize('jwt', 'root', null, {
+    host: 'localhost',
+    dialect: 'mysql'
+});
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -13,17 +20,16 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Test connection
+
 const testConnection = async () => {
     try {
-        const connection = await pool.getConnection();
-        console.log('✅ Kết nối database MySQL thành công!');
-        connection.release();
-        return true;
+        await sequelize.authenticate();
+        console.log('>>>Connection has been established successfully.');
     } catch (error) {
-        console.error('❌ Lỗi kết nối database:', error.message);
-        return false;
+        console.error('Unable to connect to the database:', error);
     }
-};
 
-export { pool, testConnection };
+}
+
+
+export { pool, sequelize, testConnection };
