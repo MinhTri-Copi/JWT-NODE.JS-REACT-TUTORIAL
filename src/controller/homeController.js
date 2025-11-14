@@ -35,10 +35,9 @@ const handleDeleteUser = async (req, res) => {
 const getUpdateUserPage = async (req, res) => {
         let userID = req.params.id;
         const user = await getUserByID(userID);
-        let userData = [];
-        if (user && user.length > 0) {
-            userData = user[0];
-        }
+        let userData = {};
+     userData = user;
+     console.log(">>>> Check userData: ", userData);
     return res.render("user-update", {userData});
 };
 
