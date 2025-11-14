@@ -1,6 +1,6 @@
     import bcrypt from "bcryptjs";
     import connection, { pool } from "../config/connectDB";
-
+    import db from "../models/index";
     const hashPassword = async (password) => {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
@@ -20,7 +20,7 @@
     const getUserList = async () => {
         try {
             
-            const [rows] = await pool.query('SELECT * FROM users');
+            const [rows] = await pool.query('SELECT * FROM user');
             
             return rows; 
         } catch (error) {
@@ -29,21 +29,27 @@
     };
     const CreateNewUser = async (email, password, username) => {
         try{
-             const [row] = await pool.query    ('INSERT INTO users(email,password,username) VALUES (?,?,?)', [email, password, username]);
+           await db.User.create({
+            email  : email,
+                password : password,
+                username : username
+           }
+                
+            );
         }catch(error){
-            console.log(">>>> Error: ", error);
+            console.log(">>>> Error: ", error); 
         }
     };
     const DeleteUser = async (userId) => {
         try{
-            const [results,fields] = await pool.execute('DELETE FROM users WHERE id = ?', [userId]);
+            const [results,fields] = await pool.execute('DELETE FROM user WHERE id = ?', [userId]);
         }catch(error){
             console.log(">>>> Error: ", error);
         }
     };
     const UpdateUser = async (id, email, username) => {
         try{
-            const [results, fields] = await pool.execute('UPDATE users SET email = ?, username = ? WHERE id = ?', [email, username, id]);
+            const [results, fields] = await pool.execute('UPDATE user SET email = ?, username = ? WHERE id = ?', [email, username, id]);
         }catch(error){
             console.log(">>>> Error: ", error);
         }
@@ -51,7 +57,7 @@
 
     const getUserByID = async (userId) => {
         try {
-            const [row] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
+            const [row] = await pool.query('SELECT * FROM user WHERE id = ?', [userId]);
             console.log(">>>> Check row: ", row);
             return row;
         } catch (error) {

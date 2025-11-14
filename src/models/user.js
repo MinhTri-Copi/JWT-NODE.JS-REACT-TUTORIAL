@@ -1,5 +1,4 @@
 'use strict';
-const { use } = require('react');
 const {
   Model
 } = require('sequelize');
