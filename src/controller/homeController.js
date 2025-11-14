@@ -1,7 +1,7 @@
 
 import { run } from "@babel/core/lib/transformation";
 import connection, { pool } from "../configs/connectDB";
-import { hashPassword, CreateNewUser, getUserList , DeleteUser} from "../service/userServices";
+import { hashPassword, CreateNewUser, getUserList , DeleteUser, UpdateUser, getUserByID} from "../service/userServices";
 
 const e = require("express");
 
@@ -34,9 +34,30 @@ const handleDeleteUser = async (req, res) => {
     res.redirect("/user");
 }
 
+
+const getUpdateUserPage = async (req, res) => {
+        let userID = req.params.id;
+        const user = await getUserByID(userID);
+        let userData = [];
+        if (user && user.length > 0) {
+            userData = user[0];
+        }
+    return res.render("user-update", {userData});
+};
+
+
+const updateUser = async (req, res) => {
+    let id = req.params.id;
+    let email = req.body.email;
+    let username = req.body.username;
+    await UpdateUser(id, email, username);
+    res.redirect("/user");
+};
 module.exports = {
     handleHelloWorld,
     handleUserPage,
     handleCreateNewUser,
-    handleDeleteUser
+    handleDeleteUser,
+    getUpdateUserPage,
+    updateUser
 }

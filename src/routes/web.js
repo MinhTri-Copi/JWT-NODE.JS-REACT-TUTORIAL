@@ -13,6 +13,8 @@ import homeController from '../controller/homeController';
      router.get("/user", homeController.handleUserPage);
      router.post("/users/create-user", homeController.handleCreateNewUser);
      router.post("/delete-user/:id", homeController.handleDeleteUser);
+     router.get("/update-user/:id", homeController.getUpdateUserPage);
+      router.post("/update-user/:id", homeController.updateUser);
      return  app.use("/", router);
 
  }

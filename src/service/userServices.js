@@ -41,10 +41,29 @@
             console.log(">>>> Error: ", error);
         }
     };
+    const UpdateUser = async (id, email, username) => {
+        try{
+            const [results, fields] = await pool.execute('UPDATE users SET email = ?, username = ? WHERE id = ?', [email, username, id]);
+        }catch(error){
+            console.log(">>>> Error: ", error);
+        }
+    };
+
+    const getUserByID = async (userId) => {
+        try {
+            const [row] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
+            console.log(">>>> Check row: ", row);
+            return row;
+        } catch (error) {
+            console.log(">>>> Error: ", error);
+        }
+    };
     module.exports = {
         hashPassword, 
         comparePassword,
         getUserList,
         CreateNewUser,
-        DeleteUser
+        DeleteUser,
+        UpdateUser,
+        getUserByID,
     }
