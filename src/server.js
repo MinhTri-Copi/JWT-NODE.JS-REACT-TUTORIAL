@@ -1,8 +1,8 @@
 import express from 'express';
-import configViewEngine from './configs/ViewEngine';
+import configViewEngine from './config/ViewEngine';
 import initWebRoutes from './routes/web';
 import bodyParser from 'body-parser';
-import { testConnection } from './configs/connectDB';
+import { testConnection } from './config/connectDB';
 require('dotenv').config(); // cau nay khai bao de su dung file .env
 
 const app = express();

@@ -1,5 +1,5 @@
     import bcrypt from "bcryptjs";
-    import connection, { pool } from "../configs/connectDB";
+    import connection, { pool } from "../config/connectDB";
 
     const hashPassword = async (password) => {
         const salt = await bcrypt.genSalt(10);

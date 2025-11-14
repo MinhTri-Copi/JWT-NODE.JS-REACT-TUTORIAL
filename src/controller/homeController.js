@@ -1,6 +1,6 @@
 
 import { run } from "@babel/core/lib/transformation";
-import connection, { pool } from "../configs/connectDB";
+import connection, { pool } from "../config/connectDB";
 import { hashPassword, CreateNewUser, getUserList , DeleteUser, UpdateUser, getUserByID} from "../service/userServices";
 
 const e = require("express");
