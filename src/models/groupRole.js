@@ -2,8 +2,9 @@
 const {
   Model
 } = require('sequelize');
+const group = require('./group');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class GroupRole extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,17 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    address : DataTypes.STRING,
-    sex : DataTypes.STRING,
-    phone: DataTypes.STRING,
-    groupId:DataTypes.INTEGER,
+  GroupRole.init({
+    groupId: DataTypes.INTEGER,
+    roleId: DataTypes.INTEGER,
+    
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'GroupRole',
   });
-  return User;
+  return GroupRole;
 };
