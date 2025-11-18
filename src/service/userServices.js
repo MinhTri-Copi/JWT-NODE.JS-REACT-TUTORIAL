@@ -18,6 +18,32 @@ module.exports = {
 }
 
 const getUserList = async () => {
+    //test relation
+    // let newUser=    await db.User.findOne({
+    //       attributes: [
+    //     'id', 'username', 'email'
+    //   ],
+    //     where: { id: 1 },
+       
+    //     include: { model: db.Group , attributes: [
+    //     'name', 'description'
+    //   ],},   
+    //     raw: true,
+    //     nest: true
+    // });
+     
+    // let Role = await db.Role.findAll({
+    //      include : { model: db.Group , where : {id : 1} },
+        
+    //      raw: true,
+    //     nest: true
+    // });
+    
+
+    // console.log(">>> Check Role: ",Role);
+
+    // console.log(">>> Check newUser: ",newUser);
+
     let users = [];
     try {
         users = await db.User.findAll();
@@ -27,6 +53,16 @@ const getUserList = async () => {
         throw error;
     }
 };
+
+// Gọi hàm async với then/catch
+// getUserList()
+//     .then(users => {
+//         console.log('Danh sách người dùng:', users);
+//     })
+//     .catch(err => {
+//         console.error('Lỗi khi lấy danh sách user:', err);
+//     });
+
 const CreateNewUser = async (email, password, username) => {
     try {
         await db.User.create({
