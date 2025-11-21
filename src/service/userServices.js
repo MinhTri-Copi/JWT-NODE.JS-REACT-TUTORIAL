@@ -19,30 +19,30 @@ module.exports = {
 
 const getUserList = async () => {
     //test relation
-    // let newUser=    await db.User.findOne({
-    //       attributes: [
-    //     'id', 'username', 'email'
-    //   ],
-    //     where: { id: 1 },
+    let newUser=    await db.User.findOne({
+          attributes: [
+        'id', 'username', 'email'
+      ],
+        where: { id: 1 },
        
-    //     include: { model: db.Group , attributes: [
-    //     'name', 'description'
-    //   ],},   
-    //     raw: true,
-    //     nest: true
-    // });
+        include: { model: db.Group , attributes: [
+        'name', 'description'
+      ],},   
+        raw: true,
+        nest: true
+    });
      
-    // let Role = await db.Role.findAll({
-    //      include : { model: db.Group , where : {id : 1} },
+    let Role = await db.Role.findAll({
+         include : { model: db.Group , where : {id : 1} },
         
-    //      raw: true,
-    //     nest: true
-    // });
+         raw: true,
+        nest: true
+    });
     
 
-    // console.log(">>> Check Role: ",Role);
+    console.log(">>> Check Role: ",Role);
 
-    // console.log(">>> Check newUser: ",newUser);
+    console.log(">>> Check newUser: ",newUser);
 
     let users = [];
     try {
