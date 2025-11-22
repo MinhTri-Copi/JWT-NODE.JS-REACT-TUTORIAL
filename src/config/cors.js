@@ -11,7 +11,8 @@ const cors = (app) => {
     next();
 });
 }
-//khai bao de  cho phep ket noi den react,  phan quyen cho phep ng dung tuong tac voi bakend
 
 
 export default cors;
+
+
