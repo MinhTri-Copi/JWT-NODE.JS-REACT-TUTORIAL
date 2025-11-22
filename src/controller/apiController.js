@@ -1,4 +1,5 @@
 import loginRegisterService from '../service/loginRegisterService';
+
 const testApi = (req , res) => 
 {
         return res.status(200).json({
@@ -39,7 +40,33 @@ const handleRegister = async (req , res) => {
     }
 
 }
+const handleLogin = async (req , res) => {
+    try{
+        if(!req.body.keyLogin || !req.body.password){   
+            return res.status(200).json({
+                EM: 'Missing required fields',  // error message
+                EC : -1 ,// error code -> sai
+                DT : '',// data
+            })
+        }
+        let data = await loginRegisterService.handleLoginUser(req.body);
+        return res.status(200).json({
+            EM: data.EM,  // error message
+            EC : data.EC ,// error code -> thanh cong
+            DT : data.DT ,// data
+        })
+       
+    }catch(error){
+        console.log(">>>> Error: ", error);
+        return res.status(500).json({
+            EM: 'error form server',  // error message
+            EC : -1 ,// error code
+            DT : '',// data
+        })
+    }
+}
 module.exports={
     testApi,
     handleRegister,
+    handleLogin,
 };

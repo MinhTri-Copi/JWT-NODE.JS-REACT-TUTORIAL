@@ -12,10 +12,7 @@ const comparePassword = async (password, hash) => {
     const bam = await bcrypt.compare(password, hash);
     return bam;
 }
-module.exports = {
-    hashPassword,
-    comparePassword
-}
+
 
 const getUserList = async () => {
     //test relation
